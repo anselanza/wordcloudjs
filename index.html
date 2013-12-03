@@ -4,20 +4,11 @@
 		<title>Word Cloud</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				background-color: #000000;
-				margin: 0px;
-				overflow: hidden;
-			}
-
-			a {
-				color:#0078ff;
-			}
-		</style>
 
 		<link rel="stylesheet" href="libs/foundation/css/normalize.css">
 		<link rel="stylesheet" href="libs/foundation/css/foundation.css">
+
+		<script src="libs/mousetrap.min.js"></script>
 
 
 	</head>
@@ -31,6 +22,33 @@
 
 
 		<script src="app.js"></script>
+
+
+		<!-- GUI start -->
+		<div ng-app="">
+			<div ng-controller="GuiController"
+				<div id="onetwothree-gui" style="position:absolute; top:0px; z-index:1;" class="panel">
+					<div class="row">
+						<div class="large-12">
+							<label>Debug</label>
+							<input id="gui-stats" type="checkbox" ng-model="gui.stats">
+							<label for="stats-checkbox">stats</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="large-12">
+							<input id="gui-helpers" type="checkbox" ng-model="gui.helpers">
+							<label for="helpers-checkbox">helpers</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- / GUI end -->
+
+
+		<script type="text/javascript" src="libs/angular.min.js"></script>
+		<script type="text/javascript" src="my_gui.js"></script>
 
 
 		<script>	
