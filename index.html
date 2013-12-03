@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>JSON PARSER</title>
+		<title>Word Cloud</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -15,27 +15,28 @@
 				color:#0078ff;
 			}
 		</style>
+
+		<link rel="stylesheet" href="libs/foundation/css/normalize.css">
+		<link rel="stylesheet" href="libs/foundation/css/foundation.css">
+
+
 	</head>
 	<body>
 
-		<script src="../build/three.min.js"></script>
+		<script src="libs/three.min.js"></script>
 		<script src="libs/stats.min.js"></script>
-		<script src="libs/jquery-1.10.2.min.js"></script>
 
-		<script>
-
-			// http://api.jquery.com/jQuery.getJSON/
-
-			var APIcall = "http://words.bighugelabs.com/api/2/185bb5ddb325382201efac61e7b7b853/connect/json?callback=?";
-			$.getJSON(APIcall, function(data){
-				console.log("Success! Raw data: ", data);
-				$.each( data.verb.syn, function (i, syn) {
-					console.log(syn)	
-				});
-			});
+		<script src="libs/foundation/js/vendor/jquery.js"></script>
+		<script src="libs/foundation/js/foundation.min.js"></script>
 
 
+		<script src="app.js"></script>
+
+
+		<script>	
+			$(document).foundation();
 		</script>
+
 	
 	</body>
 </html>
