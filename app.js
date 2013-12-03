@@ -3,7 +3,7 @@ var WIDTH = window.innerWidth,
 
 var DEFAULT_CAM_Z = 100;
 
-// Default camera
+// "Default" camera...
 var VIEW_ANGLE = 45,
 				ASPECT = WIDTH/HEIGHT,
 				NEAR = 0.1,
@@ -14,6 +14,13 @@ var camera, scene, renderer;
 var stats;
 
 var gridHelper;
+
+// Physics...
+var physics;
+var PHYS_GRAVITY = 0;
+var PHYS_DRAG = 0.01;
+
+var words = new Array();
 
 init();
 animate();
@@ -56,12 +63,17 @@ function init() {
 	container.appendChild( stats.domElement );
 
 
+	// setup physics...
+	physics = new ParticleSystem(PHYS_GRAVITY, PHYS_DRAG);
+
 	// get words...
+	var userId = 0;
 	var APIcall = "http://words.bighugelabs.com/api/2/185bb5ddb325382201efac61e7b7b853/connect/json?callback=?";
 	$.getJSON(APIcall, function(data){
 		console.log("Success! Raw data: ", data);
 		$.each( data.verb.syn, function (i, syn) {
-			console.log(syn);
+			// console.log(syn);
+			words[userId++] = new WC.Word({ text:syn });
 		});
 	});
 
