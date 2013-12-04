@@ -67,14 +67,17 @@ function init() {
 	physics = new ParticleSystem(PHYS_GRAVITY, PHYS_DRAG);
 
 	// get words...
-	var userId = 0;
+	var wordId = 0;
 	var APIcall = "http://words.bighugelabs.com/api/2/185bb5ddb325382201efac61e7b7b853/connect/json?callback=?";
 	$.getJSON(APIcall, function(data){
 		console.log("Success! Raw data: ", data);
 		$.each( data.verb.syn, function (i, syn) {
 			// console.log(syn);
-			words[userId++] = new WC.Word({ text:syn });
+			words[wordId++] = new WC.Word({ text:syn });
 		});
+		console.log("Number of Words = "+words.length);
+		console.log("Number of particles = "+physics.particles.length);
+
 	});
 
 }
@@ -115,7 +118,10 @@ function animate() {
 
 
 function update() {
-
+	physics.tick();
+	for (var i=0; i<words.length; i++) {
+		words[i].draw();
+	}
 }
 
 function render() {
