@@ -1,6 +1,9 @@
 var WC = {
 	Word: function(params) {
 		this.text = params.text;
+		this.myLevel = params.startLevel;
+		this.hasLoaded = false;
+
 		console.log("Created Word object for "+this.text);
 
 		this.particle = physics.makeParticle();
@@ -9,13 +12,12 @@ var WC = {
 
 		// Create Object3D for this Word...
 		var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
         var size = 20;
         var scale = 0.1;
 
         canvas.width = size*7.5;
         canvas.height = size;
-        context = canvas.getContext("2d");
+        var context = canvas.getContext("2d");
 
         context.textBaseline = "middle";
         context.textAlign = "center";
@@ -37,6 +39,19 @@ var WC = {
 
         scene.add(this.textMesh);
 
+		// get snyonyms...
+		var synonyms = [];
+		if (this.myLevel < MAX_LEVELS) {
+			var APIcall = "http://words.bighugelabs.com/api/2/185bb5ddb325382201efac61e7b7b853/"+this.text+"/json?callback=?";
+			$.getJSON(APIcall, function(data){
+				// console.log("Success! Raw data: ", data);
+				$.each( data.verb.syn, function (i, syn) {
+					synonyms.push(new WC.Word({ text:syn, startLevel:this.myLevel+1 }) );
+				});
+				this.hasLoaded = true;
+			});
+		}
+		this.synonyms = synonyms;
 	}
 };
 
@@ -47,5 +62,11 @@ WC.Word.prototype = {
 		var z = this.particle.position.z;
 
 		this.textMesh.position.set(x,y,z);
+
+		// Recursion: draw all my child words...
+
+		for (var i=0; i<this.synonyms.length; i++) {
+			this.synonyms[i].draw();
+		}
 	}
 };
