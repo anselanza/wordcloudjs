@@ -4,7 +4,7 @@ var WC = {
 		this.myLevel = params.startLevel;
 		this.hasLoaded = false;
 
-		console.log("Created Word object for "+this.text);
+		console.log("Created Word object for '"+this.text + "' at level "+this.myLevel);
 
 		this.particle = physics.makeParticle();
 		var range = DEFAULT_CAM_Z * 0.75;
@@ -23,6 +23,7 @@ var WC = {
         context.textAlign = "center";
         context.fillStyle = "white";
         context.font = (size/1.8)+"pt Arial";
+        // context.fillText(this.myLevel+":"+this.text, canvas.width/2-size, canvas.height/2);
         context.fillText(this.text, canvas.width/2-size, canvas.height/2);
 
         this.textTexture = new THREE.Texture(canvas);
@@ -30,6 +31,7 @@ var WC = {
 
         this.textMaterial = new THREE.MeshBasicMaterial({
             map : this.textTexture,
+            color: DEBUG_LEVEL_COLOURS[this.myLevel],
             transparent : true
         });
 
@@ -41,12 +43,15 @@ var WC = {
 
 		// get snyonyms...
 		var synonyms = [];
+		var nextLevel = this.myLevel + 1;
 		if (this.myLevel < MAX_LEVELS) {
 			var APIcall = "http://words.bighugelabs.com/api/2/185bb5ddb325382201efac61e7b7b853/"+this.text+"/json?callback=?";
 			$.getJSON(APIcall, function(data){
 				// console.log("Success! Raw data: ", data);
 				$.each( data.verb.syn, function (i, syn) {
-					synonyms.push(new WC.Word({ text:syn, startLevel:this.myLevel+1 }) );
+					countQueries++;
+					console.log("Queries so far: "+countQueries);
+					synonyms.push(new WC.Word({ text:syn, startLevel:nextLevel }) );
 				});
 				this.hasLoaded = true;
 			});

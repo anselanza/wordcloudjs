@@ -22,7 +22,10 @@ var PHYS_DRAG = 0.01;
 
 var rootWord;
 
-var MAX_LEVELS = 1;
+var MAX_LEVELS = 2;
+var countQueries = 0;
+
+var DEBUG_LEVEL_COLOURS = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#00ffff", "#ff00ff"];
 
 init();
 animate();
