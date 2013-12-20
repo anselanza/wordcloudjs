@@ -1,0 +1,11 @@
+#trackingGUI {
+	position:absolute;
+	left:200px;
+	top:0;
+}
+
+#targetColor {
+    width: 640px;
+    height: 30px;
+    border:1px solid gray;
+}

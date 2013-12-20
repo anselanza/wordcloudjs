@@ -7,6 +7,7 @@
 
 		<link rel="stylesheet" href="libs/foundation/css/normalize.css">
 		<link rel="stylesheet" href="libs/foundation/css/foundation.css">
+		<link rel="stylesheet" href="app.css">
 
 		<script src="libs/mousetrap.min.js"></script>
 
@@ -22,17 +23,15 @@
 
 		<script src="libs/traer.js"></script>
 
-		<script src="wc.js"></script>
-		<script src="app.js"></script>
 
 
-		<!-- GUI start -->
 		<div ng-app="">
-			<div ng-controller="GuiController"
+			<!-- GUI start -->
+			<div ng-controller="GuiController">
 				<div id="my-gui" style="position:absolute; top:0px; z-index:1;" class="panel">
 					<div class="row">
 						<div class="large-12">
-							<label>Debug</label>
+							<label>Debug:</label>
 							<input id="gui-stats" type="checkbox" ng-model="gui.stats">
 							<label for="stats-checkbox">stats</label>
 						</div>
@@ -45,8 +44,35 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- / GUI end -->
+			<!-- / GUI end -->
+
+			<!-- Tracking GUI -->
+			<div ng-controller="TrackingGuiController">
+				<div id="trackingGUI" class="panel">
+					<p>
+				        <h2>Sensitivity: {{tgui.sensitivity}}</h2>
+				        <input type="range" min="0" max="100" id="sensitivitySlider" ng-model="tgui.sensitivity">
+				    </p>
+				    <p>
+				        <h2>Scale: {{tgui.scale}}</h2>
+				        <input id="scaleSlider" type="range" min="0" max="15"ng-model="tgui.scale">
+				    </p>
+
+				    <video width="320" height="240" id="video"></video>
+				    <canvas width="320" height="240" id="trackerCanvas"></canvas>
+
+				    <div id="targetColor"></div>		
+				</div>
+			</div>
+			<!-- / Tracking GUI end -->
+
+		</div><!-- / div ng-app end -->
+
+
+		<script src="libs/shimUserMedia.js"></script>
+		<script src="wc.js"></script>
+		<script src="app.js"></script>
+
 
 
 		<script type="text/javascript" src="libs/angular.min.js"></script>
